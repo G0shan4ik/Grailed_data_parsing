@@ -7,5 +7,5 @@ with open('pars_list', 'r', encoding='utf8') as f:
     all_links: list[str] = list(map(lambda item: item.replace('\n', ''), f.readlines()))
 
 def start_dev():
-    # init()
+    init()
     schedule(links=all_links)
