@@ -256,7 +256,7 @@ def schedule(links: list[str]):
         with open('links8.txt', 'r', encoding='utf-8') as f:
             _mass = [item.replace('\n', '') for item in f.readlines()]
 
-        for lnk in _mass:
+        for lnk in _mass[::-1]:
             print(f'<-- {_mass.index(lnk) + 1} -->')
             grailed_parser(lnk)
         print('\n\n\n\n\n\n')
