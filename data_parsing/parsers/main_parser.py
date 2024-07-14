@@ -75,9 +75,9 @@ def pars_page_links(driver: Driver) -> list[str]:
         #         cnt += 1
         # except:
         #     continue
-    with open('links8.txt', 'a', encoding='utf-8') as f:
-        for i in result:
-            f.write(f'{i}\n')
+    # with open('links8.txt', 'a', encoding='utf-8') as f:
+    #     for i in result:
+    #         f.write(f'{i}\n')
     # print(*result, sep='\n')
     return result
 
@@ -159,28 +159,31 @@ def grailed_parser(request: Request, data):
         _photo = ads['photos'][0]['url']
     except:
         _photo = '-'
-
-    _dct = {
-        "id": ads['id'],
-        "designer": '-',  # ads['designer']['name']
-        "name": ads['title'],
-        "size": _size.replace('Size ', '') if 'Size' in _size else '-',  # ads['prettySize']
-        "color": _color,
-        "condition": _condition,
-        "sold_price": _price,
-        "authenticated": is_auth(soup),  # ads['seller']['isAuthedSeller']
-        "seller": ads['seller']['username'],
-        "seller_url": f"https://www.grailed.com/{ads['seller']['username']}",
-        "description": _descr,
-        "listed_at": to_utc(ads['createdAt']),
-        "favorites": int(ads['followerCount']),
-        "url": data.split('-')[0],
-        "gender": '-',  # soup.select('li.Breadcrumbs_item__AdcIZ')[1].text
-        "category": '-',  # f"{ads['designer']['name']} {ads['category'].replace('_', ' ').title()}"
-        "subcategory": '-',  # ads['subcategory'].replace('&', '')
-        "sold_at": to_utc(ads['soldAt']),
-        "photo_url": _photo,
-    }
+    try:
+        _dct = {
+            "id": ads['id'],
+            "designer": '-',  # ads['designer']['name']
+            "name": ads['title'],
+            "size": _size.replace('Size ', '') if 'Size' in _size else '-',  # ads['prettySize']
+            "color": _color,
+            "condition": _condition,
+            "sold_price": _price,
+            "authenticated": is_auth(soup),  # ads['seller']['isAuthedSeller']
+            "seller": ads['seller']['username'],
+            "seller_url": f"https://www.grailed.com/{ads['seller']['username']}",
+            "description": _descr,
+            "listed_at": to_utc(ads['createdAt']),
+            "favorites": int(ads['followerCount']),
+            "url": data.split('-')[0],
+            "gender": '-',  # soup.select('li.Breadcrumbs_item__AdcIZ')[1].text
+            "category": '-',  # f"{ads['designer']['name']} {ads['category'].replace('_', ' ').title()}"
+            "subcategory": '-',  # ads['subcategory'].replace('&', '')
+            "sold_at": to_utc(ads['soldAt']),
+            "photo_url": _photo,
+        }
+    except:
+        print("\n\n<-- Error DICT -->\n\n")
+        return
 
     category = [item.text for item in soup.select_one('ol.Breadcrumbs_list__7KMdk').select('li.Breadcrumbs_item__AdcIZ')[:-1]]
 
@@ -209,7 +212,7 @@ def pars_manager(driver: Driver, data: str):
     # <-- /Authorization -->
 
     # # <-- Scroll Page -->
-    how_many = int(driver.select('div.-header').text.split()[0])
+    # how_many = int(driver.select('div.-header').text.split()[0])
     # while True:
     #     for _ in range(4):
     #         driver.run_js(f'window.scrollTo(0, document.body.scrollHeight)')
@@ -250,11 +253,11 @@ def schedule(links: list[str]):
         # print('\n\nsleep\n\n')
         # sleep(uniform(240, 300))
 
-        with open('links7.txt', 'r', encoding='utf-8') as f:
+        with open('links8.txt', 'r', encoding='utf-8') as f:
             _mass = [item.replace('\n', '') for item in f.readlines()]
 
         for lnk in _mass:
-            print(f'<-- {_mass.index(lnk)} -->')
+            print(f'<-- {_mass.index(lnk) + 1} -->')
             grailed_parser(lnk)
         print('\n\n\n\n\n\n')
         break
@@ -334,7 +337,52 @@ if __name__ == '__main__':
         # "https://www.grailed.com/sold/XtHM3NH9Kg",
     ]
     s = [
+        # "https://www.grailed.com/sold/4EH6jI-fOw",
+        # "https://www.grailed.com/sold/zMDgvfAVLw",
+        # "https://www.grailed.com/sold/sUVw3SoRXw",
+        # "https://www.grailed.com/sold/ziGxpgyKzg",
+        # "https://www.grailed.com/sold/s41PQ-aDog",
+        # "https://www.grailed.com/sold/mTiad3KJdQ",
+        # "https://www.grailed.com/sold/XrnzcmOX3A",
+        # "https://www.grailed.com/sold/tR7k8kcXMg",
+        # "https://www.grailed.com/sold/zfv-nEeJzg",
+        # "https://www.grailed.com/sold/AhZi0m2-7w",
+        # "https://www.grailed.com/sold/SVGVGOVx1Q",
+        # "https://www.grailed.com/sold/CIbHwWsjdA",
+        # "https://www.grailed.com/sold/POf02I1EJA",
+        # "https://www.grailed.com/sold/VDfv7Ptu0Q",
+        # "https://www.grailed.com/sold/ERZwtMcaGQ",
+        # "https://www.grailed.com/sold/eaj23pNJaA",
+        # "https://www.grailed.com/sold/CHS6VG4SFw",
+        # "https://www.grailed.com/sold/9RMIFp9_cQ",
+        # "https://www.grailed.com/sold/F6_iKDpYEA",
+        # "https://www.grailed.com/sold/DTv5JavQAA",
+        # "https://www.grailed.com/sold/eEYOSGiZXA",
+        # "https://www.grailed.com/sold/xAV8Rxqxlg",
+        # "https://www.grailed.com/sold/s_6vv0W8MQ",
+        # "https://www.grailed.com/sold/VKvjPdKztQ",
+        # "https://www.grailed.com/sold/OwI2ByDDyA",
 
+        # "https://www.grailed.com/sold/O9bO9SPQLw",
+        # "https://www.grailed.com/sold/mXkG6PPXZg",
+        # "https://www.grailed.com/sold/Rdy-Mw5gMA",
+        # "https://www.grailed.com/sold/VQQma630Xg",
+        # "https://www.grailed.com/sold/YxR1qRUxLg",
+        # "https://www.grailed.com/sold/azOFCEBnNw",
+        # "https://www.grailed.com/sold/8JyvOPdbVQ",
+        # "https://www.grailed.com/sold/NNkV3v_6jA",
+        # "https://www.grailed.com/sold/94K1P10kHw",
+        # "https://www.grailed.com/sold/VTR4pxhDZA",
+        # "https://www.grailed.com/sold/pjC_PafGUg",
+        # "https://www.grailed.com/sold/Lv9a8bWnpQ",
+        # "https://www.grailed.com/sold/44rOX4xqYA",
+        # "https://www.grailed.com/sold/PpYm8CUxkw",
+        # "https://www.grailed.com/sold/Rer8Cpy0Dw",
+        # "https://www.grailed.com/sold/x0fMml8H4w",
+        # "https://www.grailed.com/sold/isw7JYJN5Q",
+        # "https://www.grailed.com/sold/UQzfqpYBGA",
+        # "https://www.grailed.com/sold/r39U3FjnZQ",
+        # "https://www.grailed.com/sold/eI5p9HvoVA",
     ]
     for item in s:
         pars_manager(item)
@@ -343,3 +391,4 @@ if __name__ == '__main__':
     #
     # for link in mass:
     #     grailed_parser(link)
+

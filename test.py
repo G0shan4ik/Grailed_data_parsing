@@ -138,5 +138,9 @@ async def main():
         await get_result_parser_kuf(link)
 
 
-if __name__ == '__main__':
-    asyncio.run(main())
+# if __name__ == '__main__':
+#     asyncio.run(main())
+
+b = ['1', 2, 3]
+
+
