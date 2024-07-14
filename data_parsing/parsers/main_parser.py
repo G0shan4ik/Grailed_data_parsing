@@ -75,7 +75,7 @@ def pars_page_links(driver: Driver) -> list[str]:
         #         cnt += 1
         # except:
         #     continue
-    with open('links3.txt', 'a', encoding='utf-8') as f:
+    with open('links4.txt', 'a', encoding='utf-8') as f:
         for i in result:
             f.write(f'{i}\n')
     # print(*result, sep='\n')
@@ -245,7 +245,7 @@ def schedule(links: list[str]):
         # print('\n\nsleep\n\n')
         # sleep(uniform(240, 300))
 
-        with open('links2.txt', 'r', encoding='utf-8') as f:
+        with open('links3.txt', 'r', encoding='utf-8') as f:
             _mass = [item.replace('\n', '') for item in f.readlines()]
 
         for lnk in _mass:
@@ -259,10 +259,10 @@ if __name__ == '__main__':
         # "https://www.grailed.com/sold/izGTk7yGJQ",
         # "https://www.grailed.com/sold/OMKwb97AcQ",
         # "https://www.grailed.com/sold/2M2w0tAH0w",
-        "https://www.grailed.com/sold/ltOQAGhAqQ",
-        "https://www.grailed.com/sold/ZAbmsXyMGQ",
-        "https://www.grailed.com/sold/FZPsQt7UfQ",
-        "https://www.grailed.com/sold/jQqwgp-KWA",
+        # "https://www.grailed.com/sold/ltOQAGhAqQ",
+        # "https://www.grailed.com/sold/ZAbmsXyMGQ",
+        # "https://www.grailed.com/sold/FZPsQt7UfQ",
+        # "https://www.grailed.com/sold/jQqwgp-KWA",
     ]
     s = [
         "https://www.grailed.com/sold/2XWaha7YJA",
@@ -273,7 +273,7 @@ if __name__ == '__main__':
         "https://www.grailed.com/sold/TWbrrFiFzg",
         "https://www.grailed.com/sold/oJuIW1Hk2g",
     ]
-    for item in m:
+    for item in 3:
         pars_manager(item)
     # with open('cards_links.txt', 'r', encoding='utf-8') as f:
     #     mass = [item.replace('\n', '') for item in f.readlines()]
