@@ -249,7 +249,7 @@ def schedule(links: list[str]):
         # print('\n\nsleep\n\n')
         # sleep(uniform(240, 300))
 
-        with open('links4.txt', 'r', encoding='utf-8') as f:
+        with open('links3_done.txt', 'r', encoding='utf-8') as f:
             _mass = [item.replace('\n', '') for item in f.readlines()]
 
         for lnk in _mass[::-1]:
