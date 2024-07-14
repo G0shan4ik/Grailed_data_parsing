@@ -191,8 +191,8 @@ def grailed_parser(request: Request, data):
         CardData.create(**_dct)
     except:
         ...
-    print(_dct['id'])
     push_to_supadase(data=_dct)
+    print(_dct['id'])
 
 
 @browser(
@@ -276,7 +276,30 @@ if __name__ == '__main__':
         # "https://www.grailed.com/sold/oJuIW1Hk2g",
     ]
     s = [
+        "https://www.grailed.com/sold/O-pvxXothg",
+        "https://www.grailed.com/sold/v2hFvLtFcA",
+        "https://www.grailed.com/sold/bllOQgnB8Q",
+        "https://www.grailed.com/sold/GpA5ewz13g",
+        "https://www.grailed.com/sold/xqAn3Rop9Q",
+        "https://www.grailed.com/sold/Gcw1AfytNQ",
+        "https://www.grailed.com/sold/zoyOImOl3w",
+        "https://www.grailed.com/sold/ngX2pJgsWg",
+        "https://www.grailed.com/sold/Re3VRfhw9A",
+        "https://www.grailed.com/sold/rEJqejSt_Q",
+        "https://www.grailed.com/sold/XtHM3NH9Kg",
 
+        # "https://www.grailed.com/sold/45-iDR3kDQ",
+        # "https://www.grailed.com/sold/hIGTATbckA",
+        # "https://www.grailed.com/sold/G2yS_JOaAg",
+        # "https://www.grailed.com/sold/_rQlAQufeg",
+        # "https://www.grailed.com/sold/y_Epv6Y4CQ",
+        # "https://www.grailed.com/sold/VDE4pwWOgA",
+        # "https://www.grailed.com/sold/Jr_aYDzNtg",
+        # "https://www.grailed.com/sold/wD0zhI-2Jw",
+        # "https://www.grailed.com/sold/Fw_OKHU0QA",
+        # "https://www.grailed.com/sold/d0W-7PAMYQ",
+        # "https://www.grailed.com/sold/Ji9FwCL9kA",
+        # "https://www.grailed.com/sold/cHGJaB6hsA",
     ]
     for item in s:
         pars_manager(item)
