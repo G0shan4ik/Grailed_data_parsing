@@ -9,3 +9,7 @@ with open('pars_list', 'r', encoding='utf8') as f:
 def start_dev():
     init()
     schedule(links=all_links)
+
+
+if __name__ == '__main__':
+    start_dev()
