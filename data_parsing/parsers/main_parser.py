@@ -75,7 +75,7 @@ def pars_page_links(driver: Driver) -> list[str]:
         #         cnt += 1
         # except:
         #     continue
-    with open('links5.txt', 'a', encoding='utf-8') as f:
+    with open('links6.txt', 'a', encoding='utf-8') as f:
         for i in result:
             f.write(f'{i}\n')
     # print(*result, sep='\n')
@@ -127,11 +127,13 @@ def grailed_parser(request: Request, data):
     responce = request.get(data)
 
     soup = soupify(responce)
-
-    parsed = soup.find('script', id='__NEXT_DATA__')
-    parsed_text = parsed.text
-    parsed_json: dict = loads(parsed_text)
-    ads = parsed_json['props']['pageProps']['listing']
+    try:
+        parsed = soup.find('script', id='__NEXT_DATA__')
+        parsed_text = parsed.text
+        parsed_json: dict = loads(parsed_text)
+        ads = parsed_json['props']['pageProps']['listing']
+    except:
+        return
 
     try:
         _size: str = soup.select_one('p.Body_body__dIg1V.Text.Details_detail__J0Uny.Details_nonMobile__AObqX').text
@@ -250,7 +252,7 @@ def schedule(links: list[str]):
         with open('links4.txt', 'r', encoding='utf-8') as f:
             _mass = [item.replace('\n', '') for item in f.readlines()]
 
-        for lnk in _mass:
+        for lnk in _mass[::-1]:
             grailed_parser(lnk)
         print('\n\n\n\n\n\n')
         break
@@ -274,32 +276,65 @@ if __name__ == '__main__':
         # "https://www.grailed.com/sold/yNLPGQZ-xQ",
         # "https://www.grailed.com/sold/TWbrrFiFzg",
         # "https://www.grailed.com/sold/oJuIW1Hk2g",
+        # "https://www.grailed.com/sold/O-pvxXothg",
+        # "https://www.grailed.com/sold/v2hFvLtFcA",
+        # "https://www.grailed.com/sold/bllOQgnB8Q",
+        # "https://www.grailed.com/sold/GpA5ewz13g",
+        # "https://www.grailed.com/sold/xqAn3Rop9Q",
+        # "https://www.grailed.com/sold/Gcw1AfytNQ",
+        # "https://www.grailed.com/sold/zoyOImOl3w",
+        # "https://www.grailed.com/sold/ngX2pJgsWg",
+        # "https://www.grailed.com/sold/Re3VRfhw9A",
+        # "https://www.grailed.com/sold/rEJqejSt_Q",
+        # "https://www.grailed.com/sold/XtHM3NH9Kg",
     ]
     s = [
-        "https://www.grailed.com/sold/O-pvxXothg",
-        "https://www.grailed.com/sold/v2hFvLtFcA",
-        "https://www.grailed.com/sold/bllOQgnB8Q",
-        "https://www.grailed.com/sold/GpA5ewz13g",
-        "https://www.grailed.com/sold/xqAn3Rop9Q",
-        "https://www.grailed.com/sold/Gcw1AfytNQ",
-        "https://www.grailed.com/sold/zoyOImOl3w",
-        "https://www.grailed.com/sold/ngX2pJgsWg",
-        "https://www.grailed.com/sold/Re3VRfhw9A",
-        "https://www.grailed.com/sold/rEJqejSt_Q",
-        "https://www.grailed.com/sold/XtHM3NH9Kg",
+        "https://www.grailed.com/sold/45-iDR3kDQ",
+        "https://www.grailed.com/sold/hIGTATbckA",
+        "https://www.grailed.com/sold/G2yS_JOaAg",
+        "https://www.grailed.com/sold/_rQlAQufeg",
+        "https://www.grailed.com/sold/y_Epv6Y4CQ",
+        "https://www.grailed.com/sold/VDE4pwWOgA",
+        "https://www.grailed.com/sold/Jr_aYDzNtg",
+        "https://www.grailed.com/sold/wD0zhI-2Jw",
+        "https://www.grailed.com/sold/Fw_OKHU0QA",
+        "https://www.grailed.com/sold/d0W-7PAMYQ",
+        "https://www.grailed.com/sold/Ji9FwCL9kA",
+        "https://www.grailed.com/sold/cHGJaB6hsA",
 
-        # "https://www.grailed.com/sold/45-iDR3kDQ",
-        # "https://www.grailed.com/sold/hIGTATbckA",
-        # "https://www.grailed.com/sold/G2yS_JOaAg",
-        # "https://www.grailed.com/sold/_rQlAQufeg",
-        # "https://www.grailed.com/sold/y_Epv6Y4CQ",
-        # "https://www.grailed.com/sold/VDE4pwWOgA",
-        # "https://www.grailed.com/sold/Jr_aYDzNtg",
-        # "https://www.grailed.com/sold/wD0zhI-2Jw",
-        # "https://www.grailed.com/sold/Fw_OKHU0QA",
-        # "https://www.grailed.com/sold/d0W-7PAMYQ",
-        # "https://www.grailed.com/sold/Ji9FwCL9kA",
-        # "https://www.grailed.com/sold/cHGJaB6hsA",
+        # "https://www.grailed.com/sold/1O2Ffv-dTQ",
+        # "https://www.grailed.com/sold/Fz3quZpQ7A",
+        # "https://www.grailed.com/sold/g9xDrlwTeg",
+        # "https://www.grailed.com/sold/3YRWPuMdVg",
+        # "https://www.grailed.com/sold/UCa5z9t2lg",
+        # "https://www.grailed.com/sold/g7xX7P74iQ",
+        # "https://www.grailed.com/sold/50uNLHB5iQ",
+        # "https://www.grailed.com/sold/OUighEvXyA",
+        # "https://www.grailed.com/sold/YkwErA8WxA",
+        # "https://www.grailed.com/sold/m9MiWbOY0w",
+        # "https://www.grailed.com/sold/ZFPz5BFY1g",
+        # "https://www.grailed.com/sold/2jcMgQfoIg",
+
+        # "ttps://www.grailed.com/sold/Rkfvv1-1Zg",
+        # "https://www.grailed.com/sold/oy-qtnu-tQ",
+        # "https://www.grailed.com/sold/4I3A-pGsMA",
+        # "https://www.grailed.com/sold/1GMcjfXqYg",
+        # "https://www.grailed.com/sold/bjQQ1zHItw",
+        # "https://www.grailed.com/sold/Gd4bL48v_Q",
+        # "https://www.grailed.com/sold/EJEV9RsZvQ",
+        # "https://www.grailed.com/sold/tlDd4pSjdQ",
+        # "https://www.grailed.com/sold/c-KJrWSg7w",
+        # "https://www.grailed.com/sold/n0VFG5ZQoQ",
+        # "https://www.grailed.com/sold/sXFRjbSUbQ",
+        # "https://www.grailed.com/sold/gA7AMk9q7g",
+
+        # "https://www.grailed.com/sold/NZrmkYEc_Q",
+        # "https://www.grailed.com/sold/Xca0a5zPcQ",
+        # "https://www.grailed.com/sold/BLI5F0BTqA",
+        # "https://www.grailed.com/sold/PFsYHmPIoA",
+        # "https://www.grailed.com/sold/hePtTss_Hg",
+        # "https://www.grailed.com/sold/QDU3UobiMQ",
+        # "https://www.grailed.com/sold/QHlq59B0Mw",
     ]
     for item in s:
         pars_manager(item)
