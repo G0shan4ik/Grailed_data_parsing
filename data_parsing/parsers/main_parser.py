@@ -273,7 +273,7 @@ if __name__ == '__main__':
         "https://www.grailed.com/sold/TWbrrFiFzg",
         "https://www.grailed.com/sold/oJuIW1Hk2g",
     ]
-    for item in 3:
+    for item in s:
         pars_manager(item)
     # with open('cards_links.txt', 'r', encoding='utf-8') as f:
     #     mass = [item.replace('\n', '') for item in f.readlines()]
