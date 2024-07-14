@@ -1,0 +1,9 @@
+services:
+  tr:
+    build: .
+    stop_signal: SIGINT
+    container_name: targ
+    restart: "always"
+    shm_size: 2048mb
+    volumes:
+      - ./:/app
