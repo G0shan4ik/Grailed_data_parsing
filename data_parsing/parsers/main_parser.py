@@ -249,7 +249,7 @@ def schedule(links: list[str]):
         # print('\n\nsleep\n\n')
         # sleep(uniform(240, 300))
 
-        with open('links3_done.txt', 'r', encoding='utf-8') as f:
+        with open('links5.txt', 'r', encoding='utf-8') as f:
             _mass = [item.replace('\n', '') for item in f.readlines()]
 
         for lnk in _mass[::-1]:
@@ -289,14 +289,14 @@ if __name__ == '__main__':
         # "https://www.grailed.com/sold/XtHM3NH9Kg",
     ]
     s = [
-        "https://www.grailed.com/sold/45-iDR3kDQ",
-        "https://www.grailed.com/sold/hIGTATbckA",
-        "https://www.grailed.com/sold/G2yS_JOaAg",
-        "https://www.grailed.com/sold/_rQlAQufeg",
-        "https://www.grailed.com/sold/y_Epv6Y4CQ",
-        "https://www.grailed.com/sold/VDE4pwWOgA",
-        "https://www.grailed.com/sold/Jr_aYDzNtg",
-        "https://www.grailed.com/sold/wD0zhI-2Jw",
+        # "https://www.grailed.com/sold/45-iDR3kDQ",
+        # "https://www.grailed.com/sold/hIGTATbckA",
+        # "https://www.grailed.com/sold/G2yS_JOaAg",
+        # "https://www.grailed.com/sold/_rQlAQufeg",
+        # "https://www.grailed.com/sold/y_Epv6Y4CQ",
+        # "https://www.grailed.com/sold/VDE4pwWOgA",
+        # "https://www.grailed.com/sold/Jr_aYDzNtg",
+        # "https://www.grailed.com/sold/wD0zhI-2Jw",
         "https://www.grailed.com/sold/Fw_OKHU0QA",
         "https://www.grailed.com/sold/d0W-7PAMYQ",
         "https://www.grailed.com/sold/Ji9FwCL9kA",
