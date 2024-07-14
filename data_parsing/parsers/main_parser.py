@@ -75,7 +75,7 @@ def pars_page_links(driver: Driver) -> list[str]:
         #         cnt += 1
         # except:
         #     continue
-    with open('links4.txt', 'a', encoding='utf-8') as f:
+    with open('links5.txt', 'a', encoding='utf-8') as f:
         for i in result:
             f.write(f'{i}\n')
     # print(*result, sep='\n')
@@ -187,8 +187,10 @@ def grailed_parser(request: Request, data):
     _select = CardData.select().where(CardData.id == ads['id'])
     if _select.exists():
         return
-
-    CardData.create(**_dct)
+    try:
+        CardData.create(**_dct)
+    except:
+        ...
     print(_dct['id'])
     push_to_supadase(data=_dct)
 
@@ -245,12 +247,14 @@ def schedule(links: list[str]):
         # print('\n\nsleep\n\n')
         # sleep(uniform(240, 300))
 
-        with open('links3.txt', 'r', encoding='utf-8') as f:
+        with open('links4.txt', 'r', encoding='utf-8') as f:
             _mass = [item.replace('\n', '') for item in f.readlines()]
 
         for lnk in _mass:
             grailed_parser(lnk)
         print('\n\n\n\n\n\n')
+        break
+    print('\n\n\n\n\n<--- THE END --->\n\n\n\n\n')
 
 
 if __name__ == '__main__':
@@ -263,15 +267,16 @@ if __name__ == '__main__':
         # "https://www.grailed.com/sold/ZAbmsXyMGQ",
         # "https://www.grailed.com/sold/FZPsQt7UfQ",
         # "https://www.grailed.com/sold/jQqwgp-KWA",
+        # "https://www.grailed.com/sold/2XWaha7YJA",
+        # "https://www.grailed.com/sold/Y2swMVhYTA",
+        # "https://www.grailed.com/sold/EEqPt1cRcg",
+        # "https://www.grailed.com/sold/Km4dRpe0ZQ",
+        # "https://www.grailed.com/sold/yNLPGQZ-xQ",
+        # "https://www.grailed.com/sold/TWbrrFiFzg",
+        # "https://www.grailed.com/sold/oJuIW1Hk2g",
     ]
     s = [
-        "https://www.grailed.com/sold/2XWaha7YJA",
-        "https://www.grailed.com/sold/Y2swMVhYTA",
-        "https://www.grailed.com/sold/EEqPt1cRcg",
-        "https://www.grailed.com/sold/Km4dRpe0ZQ",
-        "https://www.grailed.com/sold/yNLPGQZ-xQ",
-        "https://www.grailed.com/sold/TWbrrFiFzg",
-        "https://www.grailed.com/sold/oJuIW1Hk2g",
+
     ]
     for item in s:
         pars_manager(item)
