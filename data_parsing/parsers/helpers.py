@@ -1,59 +1,168 @@
-dct = {
-    "id": '',
-    "designer": '',
-    "name": '',
-    "size": '',
-    "color": '',
-    "condition": '',
-    "sold_price": '',
-    "authenticated": False,
-    "seller": '',
-    "seller_url": '',
-    "description": '',
-    "listed_at": '',  # !!!
-    "favorites": '',
-    "url": '',
-    "gender": '-',
-    "category": '-',
-    "subcategory": '-',
-    "sold_at": '',  # !!!
-    "photo_url": '',
-}
+from time import sleep
+from json import loads
 
-# @browser(
-#     reuse_driver=True,
-#     parallel=4,
-#     block_images=True,
-#     close_on_crash=True,
-# )
-# def grailed_parser(driver: Driver, card_link):
-#     from pprint import pprint
-#     driver.get_via(card_link, 'https://www.grailed.com')
-#     driver.sleep(2)
-#
-#     soup = BeautifulSoup(driver.page_html, 'lxml')
-#
-#     bar = [item.text for item in soup.select_one('ol.Breadcrumbs_list__7KMdk').select('li.Breadcrumbs_item__AdcIZ')][:-1]
-#     text_dct = category_to_dct(bar)
-#     pprint(text_dct)
-#
-#     data_3_5 = soup.select('p.Body_body__dIg1V.Text.Details_detail__J0Uny.Details_nonMobile__AObqX')
-#
-#     text_dct['id'] = int(card_link.replace('https://www.grailed.com/listings/', '').split('-')[0])
-#     text_dct['name'] = soup.select_one('h1.Body_body__dIg1V.Text.Details_title__PpX5v').text
-#     text_dct['size'] = data_3_5[0].text.replace('Size ', '')
-#     text_dct['color'] = data_3_5[1].text.replace('Color ', '')
-#     text_dct['condition'] = data_3_5[2].text.replace('Condition ', '')
-#     text_dct['sold_price'] = int(soup.select_one('span.Money_root__8lDCT.SoldPrice_soldPrice__3yy1H').text.replace('$', ''))
-#     text_dct['authenticated'] = True if soup.select_one('p.Headline_headline___qUL5.Text.Card_header__E4I5s').text == 'Authenticated' else False
-#     text_dct['seller'] = soup.select_one('span.Text.Subhead_subhead__70fsG.UsernameWithBadges_usernameText__ookiK').text
-#     text_dct['seller_url'] = f'https://www.grailed.com/{text_dct["seller"]}'
-#     text_dct['description'] = soup.select_one('div.SimpleFormat.Description_body__cJryj').text.replace('\n', '').replace('\t', '')
-#     text_dct['favorites'] = int(soup.select_one('span.Text.SmallTitle_smallTitle__oio_S.Likes_count__lMavB').text)
-#     text_dct['url'] = f'https://www.grailed.com/listings/{text_dct["id"]}'
-#     text_dct['photo_url'] = soup.select_one('img.Photo_picture__g7Lsj.Image_fill__QTtNL.Image_clip__bU5A3.Image_center__CG78h').get('src')
-#
-#     pprint(text_dct)
-#     print()
-#     print(text_dct)
-#     push_to_supadase(data=text_dct)
+from botasaurus.request import request, Request
+from botasaurus.soupify import soupify
+from botasaurus.browser import browser, Driver
+
+from datetime import datetime, timezone
+
+from supabase import create_client, Client
+
+from os import getenv
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+email = getenv('EMAIL')
+password = getenv('PASSWORD')
+key = getenv('KEY')
+url = getenv('URL')
+tb_name = getenv('TABLE_NAME')
+
+# def chek_db_match(listing_URL: str):
+#     _select = CardData.select().where(CardData.Listing_URL == listing_URL)
+#     if _select.exists():
+#         print(True)  # не парсим
+#         return True
+#     print(False)  # парсим
+#     return False
+
+
+def category_to_dct(category: list[str], dct):
+    text_dct = dct
+    if len(category) == 4:
+        text_dct['designer'], text_dct['gender'], text_dct['category'], text_dct['subcategory'] = category
+    elif len(category) == 3:
+        text_dct['designer'], text_dct['gender'], text_dct['category'] = category
+    elif len(category) == 2:
+        text_dct['designer'], text_dct['gender'] = category
+    elif len(category) == 1:
+        text_dct['designer'] = category[0]
+
+    return text_dct
+
+
+def is_auth(sp):
+    try:
+        return True if sp.select_one('p.Headline_headline___qUL5.Text.Card_header__E4I5s').text == 'Authenticated' else False
+    except:
+        return False
+
+
+def to_utc(date: str):
+    dt = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%fZ")
+    dt = dt.replace(tzinfo=timezone.utc)
+    return dt.strftime("%Y-%m-%d %H:%M:%S")
+
+
+def push_to_supadase(data: dict) -> bool:
+    url = 'https://cjnjheetblycwuttmnch.supabase.co'
+    key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqbmpoZWV0Ymx5Y3d1dHRtbmNoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMDcwMjgzMSwiZXhwIjoyMDM2Mjc4ODMxfQ.mk8DZwWSAWevP3QGET9KKShMkCkn_RcoDdpYuV3Fyls'
+    tb_name = 'GRAILED'
+    try:
+        supabase: Client = create_client(url, key)
+        supabase.table(tb_name).insert(data).execute()
+        return True
+    except Exception as ex:
+        print(f"\n\n\nError SUREDASE: {ex}\n\n")
+        return False
+
+
+@request(
+    # cache=True,
+)
+def grailed_parser(request: Request, data):
+    try:
+        responce = request.get(data)
+    except:
+        return
+
+    soup = soupify(responce)
+    try:
+        parsed = soup.find('script', id='__NEXT_DATA__')
+        parsed_text = parsed.text
+        parsed_json: dict = loads(parsed_text)
+        ads = parsed_json['props']['pageProps']['listing']
+    except:
+        return
+
+    try:
+        _size: str = soup.select_one('p.Body_body__dIg1V.Text.Details_detail__J0Uny.Details_nonMobile__AObqX').text
+    except:
+        _size = '-'
+    try:
+        _color = ads['traits'][0]['value'].capitalize()
+    except:
+        _color = '-'
+    try:
+        _condition = ads['condition'].replace('_', ' ').capitalize().replace('Is ', '').capitalize()
+    except:
+        _condition = '-'
+    try:
+        _price = ads['soldPrice']
+    except:
+        _price = 0
+    try:
+        _descr = ads['description'].replace('\n', ' ').replace('\t', ' ').replace('  ', ' ')
+    except:
+        _descr = '-'
+    try:
+        _photo = ads['photos'][0]['url']
+    except:
+        _photo = '-'
+    try:
+        _dct = {
+            "id": ads['id'],
+            "designer": '-',  # ads['designer']['name']
+            "name": ads['title'],
+            "size": _size.replace('Size ', '') if 'Size' in _size else '-',  # ads['prettySize']
+            "color": _color,
+            "condition": _condition,
+            "sold_price": _price,
+            "authenticated": is_auth(soup),  # ads['seller']['isAuthedSeller']
+            "seller": ads['seller']['username'],
+            "seller_url": f"https://www.grailed.com/{ads['seller']['username']}",
+            "description": _descr,
+            "listed_at": to_utc(ads['createdAt']),
+            "favorites": int(ads['followerCount']),
+            "url": data.split('-')[0],
+            "gender": '-',  # soup.select('li.Breadcrumbs_item__AdcIZ')[1].text
+            "category": '-',  # f"{ads['designer']['name']} {ads['category'].replace('_', ' ').title()}"
+            "subcategory": '-',  # ads['subcategory'].replace('&', '')
+            "sold_at": to_utc(ads['soldAt']),
+            "photo_url": _photo,
+        }
+    except:
+        print("\n\n<-- Error DICT -->\n\n")
+        return
+
+    category = [item.text for item in soup.select_one('ol.Breadcrumbs_list__7KMdk').select('li.Breadcrumbs_item__AdcIZ')[:-1]]
+
+    category_to_dct(category=category, dct=_dct)
+
+    if push_to_supadase(data=_dct) is False:
+        return
+
+    print(_dct['id'])
+    return True
+
+
+def authorization_to_grailed(driver: Driver, url_: str):
+    driver.get_via(url_, 'https://www.grailed.com')
+    try:
+        driver.sleep(2)
+        driver.click('a[data-testid="login-btn"]')
+    except:
+        return
+    driver.click('button[data-cy="login-with-email"]')
+    driver.sleep(1)
+    driver.type('input#email', email)
+    driver.sleep(1)
+    driver.type('input#password', password)
+    driver.sleep(1)
+    driver.click('button[data-cy="auth-login-submit"')
+    driver.sleep(2)
+    driver.get_via(url_, 'https://www.grailed.com')
+    driver.sleep(2)
