@@ -17,10 +17,10 @@ def pars_page_links(driver: Driver):
             # result.append(f"https://www.grailed.com{_url}")
 
             # # <-- Pars Card -->
-            print(_url)
 
             if grailed_parser(_url) is None:
                 break
+            print(_url)
             # # <-- /Pars Card -->
         except:
             ...
