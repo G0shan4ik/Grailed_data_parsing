@@ -8,7 +8,7 @@ RUN apt update -y && apt install gcc -y
 
 COPY pyproject.toml .
 RUN apt-get install xvfb
-RUN Xvfb :99 -ac & export DISPLAY=:99
+RUN Xvfb :99 -screen 0 1024x768x16 & export DISPLAY=:99
 
 RUN rm -rf build
 RUN poetry install

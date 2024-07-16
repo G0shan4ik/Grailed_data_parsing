@@ -29,7 +29,8 @@ def pars_page_links(driver: Driver):
 @browser(
     block_images=True,
     profile='Grailed',
-    close_on_crash=True
+    close_on_crash=True,
+    add_arguments=['--disable-dev-shm-usage', '--no-sandbox'],
 )
 def pars_manager(driver: Driver, data: str):
     # <-- Authorization -->
