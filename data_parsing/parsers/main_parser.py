@@ -27,10 +27,10 @@ def pars_page_links(driver: Driver):
 
 
 @browser(
-    block_images=True,
-    profile='Grailed',
+    # profile='Grailed',
     close_on_crash=True,
-    add_arguments=['--disable-dev-shm-usage', '--no-sandbox'],
+    # add_arguments=['--disable-dev-shm-usage', '--no-sandbox'],
+    add_arguments=['--disable-extensions', '--disable-application-cache', '--disable-gpu', '--no-sandbox',  '--disable-setuid-sandbox', '--disable-dev-shm-usage']
 )
 def pars_manager(driver: Driver, data: str):
     # <-- Authorization -->
