@@ -64,6 +64,7 @@ def schedule(links: list[str]):
             for _link in links:
                 print(f"\n<-- Link: {_link} -- num: {links.index(_link)+1}-->\n")
                 pars_manager(_link)
+                sleep(randint(25, 35))
             print('\n\nsleep\n\n')
             break
     except Exception as ex:
