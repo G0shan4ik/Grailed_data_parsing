@@ -152,17 +152,18 @@ def grailed_parser(request: Request, data):
 def authorization_to_grailed(driver: Driver, url_: str):
     driver.get_via(url_, 'https://www.grailed.com')
     try:
-        driver.sleep(2)
+        driver.sleep(5)
         driver.click('a[data-testid="login-btn"]')
     except:
         return
+    driver.sleep(7)
     driver.click('button[data-cy="login-with-email"]')
-    driver.sleep(1)
+    driver.sleep(3)
     driver.type('input#email', email)
-    driver.sleep(1)
+    driver.sleep(3)
     driver.type('input#password', password)
-    driver.sleep(1)
+    driver.sleep(3)
     driver.click('button[data-cy="auth-login-submit"')
-    driver.sleep(2)
+    driver.sleep(4)
     driver.get_via(url_, 'https://www.grailed.com')
-    driver.sleep(2)
+    driver.sleep(4)
