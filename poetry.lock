@@ -1794,6 +1794,19 @@ files = [
 httpx = ">=0.24,<0.28"
 
 [[package]]
+name = "twocaptcha"
+version = "0.0.1"
+description = "2Captcha Python3 API Wrapper"
+optional = false
+python-versions = "*"
+files = [
+    {file = "TwoCaptcha-0.0.1.tar.gz", hash = "sha256:fd04127de71ca4bd31c22add84a5bcb7c683cf9ee5bf503ca14a8f372ac76a0e"},
+]
+
+[package.dependencies]
+requests = "*"
+
+[[package]]
 name = "typing-extensions"
 version = "4.12.2"
 description = "Backported and Experimental Type Hints for Python 3.8+"
@@ -2174,4 +2187,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "43d9ba376b42f8554a9e74935795a62bb5d5dd0630878add81bc473e1d3d0256"
+content-hash = "35970f4a03f7e1ead7e3695c3861aa563f1d98ab4d5c41eaf85cc7300a4e9a29"

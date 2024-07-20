@@ -7,10 +7,13 @@ from botasaurus.browser import browser, Driver
 
 from datetime import datetime, timezone
 
+from bs4 import BeautifulSoup
 from supabase import create_client, Client
 
 from os import getenv
 from dotenv import load_dotenv
+
+from twocaptcha import TwoCaptcha
 
 
 load_dotenv()
@@ -20,6 +23,22 @@ password = getenv('PASSWORD')
 key = getenv('KEY')
 url = getenv('URL')
 tb_name = getenv('TABLE_NAME')
+
+
+def complete_captcha(siteurl, pageurl):
+    solver = TwoCaptcha('54ed9d2f2447133ad1e9771000ffe4b1')
+
+    try:
+
+        result = solver.solve_captcha(
+            site_key=siteurl,
+            page_url=pageurl)
+
+    except Exception as e:
+        print(e)
+
+    else:
+        print('solved: ' + str(result))
 
 # def chek_db_match(listing_URL: str):
 #     _select = CardData.select().where(CardData.Listing_URL == listing_URL)
@@ -152,18 +171,32 @@ def grailed_parser(request: Request, data):
 def authorization_to_grailed(driver: Driver, url_: str):
     driver.get_via(url_, 'https://www.grailed.com')
     try:
-        driver.sleep(5)
+        driver.sleep(2)
+        try:
+            driver.click('button#onetrust-accept-btn-handler')
+        except:
+            ...
         driver.click('a[data-testid="login-btn"]')
     except:
         return
-    driver.sleep(7)
+    driver.sleep(2)
     driver.click('button[data-cy="login-with-email"]')
-    driver.sleep(3)
+    driver.sleep(1)
     driver.type('input#email', email)
-    driver.sleep(3)
+    driver.sleep(1)
     driver.type('input#password', password)
-    driver.sleep(3)
+    driver.sleep(1)
     driver.click('button[data-cy="auth-login-submit"')
     driver.sleep(4)
+    # soup = BeautifulSoup(driver.page_html, 'lxml')
+    from pprint import pprint
+    # print(driver.run_js('window.PUBLIC_CONFIG'))
+    # driver.prompt()
+    # print(driver.select('div.rc-image-tile-wrapper'))  # .select('img').get_attribute('src'))
+    # complete_captcha(
+    #     siteurl='',
+    #     pageurl=driver.current_url
+    # )
+    driver.sleep(3)
     driver.get_via(url_, 'https://www.grailed.com')
     driver.sleep(4)

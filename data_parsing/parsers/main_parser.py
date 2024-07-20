@@ -29,12 +29,14 @@ def pars_page_links(driver: Driver):
 @browser(
     # profile='Grailed',
     close_on_crash=True,
+    reuse_driver=True,
     # add_arguments=['--disable-dev-shm-usage', '--no-sandbox'],
     add_arguments=['--disable-extensions', '--disable-application-cache', '--disable-gpu', '--no-sandbox',  '--disable-setuid-sandbox', '--disable-dev-shm-usage']
 )
 def pars_manager(driver: Driver, data: str):
     # <-- Authorization -->
-    authorization_to_grailed(driver, data)
+    link, fl = data.split('#')
+    authorization_to_grailed(driver, link)
     # <-- /Authorization -->
 
     # # <-- Scroll Page -->
@@ -53,6 +55,8 @@ def pars_manager(driver: Driver, data: str):
     # <-- Pars All Page Links -->
     pars_page_links(driver)
     # <-- /Pars All Page Links -->
+    if fl == 'close':
+        driver.close()
 
     return
 
@@ -63,8 +67,9 @@ def schedule(links: list[str]):
         while True:
             for _link in links:
                 print(f"\n<-- Link: {_link} -- num: {links.index(_link)+1}-->\n")
-                pars_manager(_link)
-                sleep(randint(25, 35))
+                u = f"{_link}#reuse" if len(links) != links.index(_link)+1 else f"{_link}#close"
+                pars_manager(u)
+                # sleep(randint(25, 35))
             print('\n\nsleep\n\n')
             break
     except Exception as ex:
