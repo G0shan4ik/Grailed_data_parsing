@@ -192,6 +192,7 @@ def authorization_to_grailed(driver: Driver, url_: str):
     from pprint import pprint
     # print(driver.run_js('window.PUBLIC_CONFIG'))
     driver.prompt()
+    driver.save_screenshot(f"{datetime.now()}")
     # print(driver.select('div.rc-image-tile-wrapper'))  # .select('img').get_attribute('src'))
     # complete_captcha(
     #     siteurl='',
