@@ -10,7 +10,7 @@ def start_dev():
     while True:
         schedule(links=all_links)
 
-        sleep(3000)
+        sleep(1800)
 
 
 if __name__ == '__main__':

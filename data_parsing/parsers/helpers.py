@@ -191,7 +191,7 @@ def authorization_to_grailed(driver: Driver, url_: str):
     # soup = BeautifulSoup(driver.page_html, 'lxml')
     from pprint import pprint
     # print(driver.run_js('window.PUBLIC_CONFIG'))
-    # driver.prompt()
+    driver.prompt()
     # print(driver.select('div.rc-image-tile-wrapper'))  # .select('img').get_attribute('src'))
     # complete_captcha(
     #     siteurl='',
