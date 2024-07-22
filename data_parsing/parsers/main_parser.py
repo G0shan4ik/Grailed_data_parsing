@@ -1,4 +1,5 @@
 from time import sleep
+from uuid import uuid4
 
 from botasaurus.browser import browser, Driver
 
@@ -50,6 +51,8 @@ def pars_manager(driver: Driver, data: str):
     #         break
     driver.sleep(1)
     # # <-- /Scroll Page -->
+
+    driver.save_screenshot(f'{uuid4()}')
 
     # <-- Pars All Page Links -->
     pars_page_links(driver)
