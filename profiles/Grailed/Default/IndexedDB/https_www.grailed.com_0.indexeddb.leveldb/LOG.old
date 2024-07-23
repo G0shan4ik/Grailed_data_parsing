@@ -1,13 +1,14 @@
-2024/07/23-01:24:12.524 435c Reusing MANIFEST C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\IndexedDB\https_www.grailed.com_0.indexeddb.leveldb/MANIFEST-000001
-2024/07/23-01:24:12.525 435c Recovering log #150
-2024/07/23-01:24:12.526 435c Reusing old log C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\IndexedDB\https_www.grailed.com_0.indexeddb.leveldb/000150.log 
-2024/07/23-01:24:12.826 59b8 Level-0 table #155: started
-2024/07/23-01:24:12.829 59b8 Level-0 table #155: 3018 bytes OK
-2024/07/23-01:24:12.831 59b8 Delete type=0 #150
-2024/07/23-01:24:12.832 5774 Manual compaction at level-0 from '\x007\x00\x00\x00' @ 72057594037927935 : 1 .. '\x008\x00\x00\x00' @ 0 : 0; will stop at '\x007\x01\x03\x03\x00\x00\x00\x00\x00\x00\xf0?' @ 5504 : 1
-2024/07/23-01:24:12.833 5774 Compacting 1@0 + 1@1 files
-2024/07/23-01:24:12.836 5774 Generated table #156@0: 231 keys, 3897 bytes
-2024/07/23-01:24:12.836 5774 Compacted 1@0 + 1@1 files => 3897 bytes
-2024/07/23-01:24:12.836 5774 compacted to: files[ 0 1 1 0 0 0 0 ]
-2024/07/23-01:24:12.837 5774 Delete type=2 #155
-2024/07/23-01:24:12.838 5774 Manual compaction at level-0 from '\x007\x01\x03\x03\x00\x00\x00\x00\x00\x00\xf0?' @ 5504 : 1 .. '\x008\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/07/23-01:24:44.380 1c4c Reusing MANIFEST C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\IndexedDB\https_www.grailed.com_0.indexeddb.leveldb/MANIFEST-000001
+2024/07/23-01:24:44.381 1c4c Recovering log #154
+2024/07/23-01:24:44.382 1c4c Reusing old log C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\IndexedDB\https_www.grailed.com_0.indexeddb.leveldb/000154.log 
+2024/07/23-01:24:44.383 1c4c Delete type=2 #152
+2024/07/23-01:24:45.269 49c4 Level-0 table #159: started
+2024/07/23-01:24:45.273 49c4 Level-0 table #159: 1774 bytes OK
+2024/07/23-01:24:45.275 49c4 Delete type=0 #154
+2024/07/23-01:24:45.275 1c4c Manual compaction at level-0 from '\x008\x00\x00\x00' @ 72057594037927935 : 1 .. '\x009\x00\x00\x00' @ 0 : 0; will stop at '\x008\x01\x03\x03\x00\x00\x00\x00\x00\x00\xf0?' @ 5606 : 1
+2024/07/23-01:24:45.276 1c4c Compacting 1@0 + 1@1 files
+2024/07/23-01:24:45.279 1c4c Generated table #160@0: 232 keys, 3942 bytes
+2024/07/23-01:24:45.279 1c4c Compacted 1@0 + 1@1 files => 3942 bytes
+2024/07/23-01:24:45.280 1c4c compacted to: files[ 0 1 1 0 0 0 0 ]
+2024/07/23-01:24:45.280 1c4c Delete type=2 #159
+2024/07/23-01:24:45.287 1c4c Manual compaction at level-0 from '\x008\x01\x03\x03\x00\x00\x00\x00\x00\x00\xf0?' @ 5606 : 1 .. '\x009\x00\x00\x00' @ 0 : 0; will stop at (end)

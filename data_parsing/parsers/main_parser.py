@@ -30,6 +30,7 @@ def pars_page_links(driver: Driver):
 @browser(
     profile='Grailed',
     close_on_crash=True,
+    proxy='http://wS1WHB:k4eGHy@87.251.69.56:8000',
     # reuse_driver=True,
     # add_arguments=['--disable-dev-shm-usage', '--no-sandbox'],
     add_arguments=['--disable-extensions', '--disable-application-cache', '--disable-gpu', '--no-sandbox',  '--disable-setuid-sandbox', '--disable-dev-shm-usage']
