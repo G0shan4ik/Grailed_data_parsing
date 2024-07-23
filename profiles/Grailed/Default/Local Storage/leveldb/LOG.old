@@ -1,3 +1,6 @@
-2024/07/23-01:24:41.672 1dbc Reusing MANIFEST C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\Local Storage\leveldb/MANIFEST-000001
-2024/07/23-01:24:41.685 1dbc Recovering log #10
-2024/07/23-01:24:41.690 1dbc Reusing old log C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\Local Storage\leveldb/000010.log 
+2024/07/23-13:49:33.803 1f0c Reusing MANIFEST C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\Local Storage\leveldb/MANIFEST-000001
+2024/07/23-13:49:33.819 1f0c Recovering log #10
+2024/07/23-13:49:33.825 1f0c Reusing old log C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\Local Storage\leveldb/000010.log 
+2024/07/23-13:50:35.362 1f0c Level-0 table #14: started
+2024/07/23-13:50:35.375 1f0c Level-0 table #14: 8711 bytes OK
+2024/07/23-13:50:35.379 1f0c Delete type=0 #10

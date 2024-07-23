@@ -1,4 +1,14 @@
-2024/07/23-12:12:26.960 6298 Reusing MANIFEST C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\IndexedDB\https_www.grailed.com_0.indexeddb.leveldb/MANIFEST-000001
-2024/07/23-12:12:26.961 6298 Recovering log #158
-2024/07/23-12:12:26.962 6298 Reusing old log C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\IndexedDB\https_www.grailed.com_0.indexeddb.leveldb/000158.log 
-2024/07/23-12:12:26.963 6298 Delete type=2 #156
+2024/07/23-13:50:44.635 520c Reusing MANIFEST C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\IndexedDB\https_www.grailed.com_0.indexeddb.leveldb/MANIFEST-000001
+2024/07/23-13:50:44.635 520c Recovering log #202
+2024/07/23-13:50:44.636 520c Reusing old log C:\Users\Projects\kwork_tasks\Grailed_data_parsing\profiles\Grailed\Default\IndexedDB\https_www.grailed.com_0.indexeddb.leveldb/000202.log 
+2024/07/23-13:50:44.637 520c Delete type=2 #200
+2024/07/23-13:51:15.659 bec Level-0 table #207: started
+2024/07/23-13:51:15.661 bec Level-0 table #207: 1799 bytes OK
+2024/07/23-13:51:15.663 bec Delete type=0 #202
+2024/07/23-13:51:15.664 520c Manual compaction at level-0 from '\x00H\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00I\x00\x00\x00' @ 0 : 0; will stop at '\x00H\x01\x03\x03\x00\x00\x00\x00\x00\x00\xf0?' @ 7238 : 1
+2024/07/23-13:51:15.664 520c Compacting 1@0 + 1@1 files
+2024/07/23-13:51:15.667 520c Generated table #208@0: 248 keys, 4382 bytes
+2024/07/23-13:51:15.668 520c Compacted 1@0 + 1@1 files => 4382 bytes
+2024/07/23-13:51:15.668 520c compacted to: files[ 0 1 1 0 0 0 0 ]
+2024/07/23-13:51:15.670 520c Delete type=2 #207
+2024/07/23-13:51:15.671 520c Manual compaction at level-0 from '\x00H\x01\x03\x03\x00\x00\x00\x00\x00\x00\xf0?' @ 7238 : 1 .. '\x00I\x00\x00\x00' @ 0 : 0; will stop at (end)
