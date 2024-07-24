@@ -15,6 +15,8 @@ from dotenv import load_dotenv
 
 from twocaptcha import TwoCaptcha
 
+from loguru import logger
+
 
 load_dotenv()
 
@@ -76,16 +78,16 @@ def to_utc(date: str):
     return dt.strftime("%Y-%m-%d %H:%M:%S")
 
 
-def push_to_supadase(data: dict) -> bool:
-    url = 'https://cjnjheetblycwuttmnch.supabase.co'
-    key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqbmpoZWV0Ymx5Y3d1dHRtbmNoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMDcwMjgzMSwiZXhwIjoyMDM2Mjc4ODMxfQ.mk8DZwWSAWevP3QGET9KKShMkCkn_RcoDdpYuV3Fyls'
-    tb_name = 'GRAILED'
+def push_to_supadase(data: dict, _url: str) -> bool:
+    # url = 'https://cjnjheetblycwuttmnch.supabase.co'
+    # key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqbmpoZWV0Ymx5Y3d1dHRtbmNoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMDcwMjgzMSwiZXhwIjoyMDM2Mjc4ODMxfQ.mk8DZwWSAWevP3QGET9KKShMkCkn_RcoDdpYuV3Fyls'
+    # tb_name = 'GRAILED'
     try:
         supabase: Client = create_client(url, key)
         supabase.table(tb_name).insert(data).execute()
         return True
     except Exception as ex:
-        print(f"\n\n\nError SUREDASE: {ex}\n\n")
+        logger.info(f'LINK EXISTS(:  {_url}')
         return False
 
 
@@ -161,7 +163,7 @@ def grailed_parser(request: Request, data):
 
     category_to_dct(category=category, dct=_dct)
 
-    if push_to_supadase(data=_dct) is False:
+    if push_to_supadase(data=_dct, _url=data) is False:
         return
 
     print(_dct['id'])
@@ -170,6 +172,7 @@ def grailed_parser(request: Request, data):
 
 def authorization_to_grailed(driver: Driver, url_: str):
     driver.get_via(url_, 'https://www.grailed.com')
+
     try:
         driver.sleep(2)
         try:
@@ -180,6 +183,9 @@ def authorization_to_grailed(driver: Driver, url_: str):
     except:
         return
     driver.sleep(2)
+
+    driver.save_screenshot(f'BEFORE_authorisation_{datetime.now().strftime("%Y_%m_%d__%H_%M_%S")}')
+
     driver.click('button[data-cy="login-with-email"]')
     driver.sleep(1)
     driver.type('input#email', email)
@@ -187,17 +193,9 @@ def authorization_to_grailed(driver: Driver, url_: str):
     driver.type('input#password', password)
     driver.sleep(1)
     driver.click('button[data-cy="auth-login-submit"')
-    driver.sleep(4)
-    # soup = BeautifulSoup(driver.page_html, 'lxml')
-    from pprint import pprint
-    # print(driver.run_js('window.PUBLIC_CONFIG'))
-    driver.prompt()
-    driver.save_screenshot(f"{datetime.now()}")
-    # print(driver.select('div.rc-image-tile-wrapper'))  # .select('img').get_attribute('src'))
-    # complete_captcha(
-    #     siteurl='',
-    #     pageurl=driver.current_url
-    # )
-    driver.sleep(3)
+    driver.sleep(2)
+
+    logger.info(f'Submit {url_}')
+
     driver.get_via(url_, 'https://www.grailed.com')
-    driver.sleep(4)
+    driver.sleep(2)
