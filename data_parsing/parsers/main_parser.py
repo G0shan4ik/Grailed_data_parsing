@@ -1,11 +1,8 @@
 from datetime import datetime
-from time import sleep
-from uuid import uuid4
 
 from botasaurus.browser import browser, Driver
 
 from .helpers import grailed_parser, authorization_to_grailed
-from random import randint, uniform
 
 import lxml
 from bs4 import BeautifulSoup
@@ -18,7 +15,7 @@ def pars_page_links(driver: Driver):
     for item in soup.select('div.feed-item'):
         try:
             _url = f"https://www.grailed.com{item.select_one('a.listing-item-link').get('href')}"
-            logger.info(f'Parsing data to supabase:  {_url}')
+            # logger.info(f'Parsing data to supabase:  {_url}')
             # result.append(f"https://www.grailed.com{_url}")
 
             # # <-- Pars Card -->

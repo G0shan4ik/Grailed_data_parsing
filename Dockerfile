@@ -11,6 +11,9 @@ RUN apt-get install xvfb
 RUN Xvfb :99 -screen 0 1024x768x16 & export DISPLAY=:99
 
 RUN apt-get install -f
+RUN rm $(which google-chrome-stable)
+RUN apt-get update
+RUN apt-get install chromium -y
 
 RUN rm -rf build
 RUN poetry install
