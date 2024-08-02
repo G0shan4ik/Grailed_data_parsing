@@ -3,17 +3,14 @@ from json import loads
 
 from botasaurus.request import request, Request
 from botasaurus.soupify import soupify
-from botasaurus.browser import browser, Driver
+from botasaurus.browser import Driver
 
 from datetime import datetime, timezone
 
-from bs4 import BeautifulSoup
 from supabase import create_client, Client
 
 from os import getenv
 from dotenv import load_dotenv
-
-from twocaptcha import TwoCaptcha
 
 from loguru import logger
 
@@ -25,30 +22,6 @@ password = getenv('PASSWORD')
 key = getenv('KEY')
 url = getenv('URL')
 tb_name = getenv('TABLE_NAME')
-
-
-def complete_captcha(siteurl, pageurl):
-    solver = TwoCaptcha('54ed9d2f2447133ad1e9771000ffe4b1')
-
-    try:
-
-        result = solver.solve_captcha(
-            site_key=siteurl,
-            page_url=pageurl)
-
-    except Exception as e:
-        print(e)
-
-    else:
-        print('solved: ' + str(result))
-
-# def chek_db_match(listing_URL: str):
-#     _select = CardData.select().where(CardData.Listing_URL == listing_URL)
-#     if _select.exists():
-#         print(True)  # не парсим
-#         return True
-#     print(False)  # парсим
-#     return False
 
 
 def category_to_dct(category: list[str], dct):
@@ -79,9 +52,6 @@ def to_utc(date: str):
 
 
 def push_to_supadase(data: dict, _url: str) -> bool:
-    # url = 'https://cjnjheetblycwuttmnch.supabase.co'
-    # key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqbmpoZWV0Ymx5Y3d1dHRtbmNoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMDcwMjgzMSwiZXhwIjoyMDM2Mjc4ODMxfQ.mk8DZwWSAWevP3QGET9KKShMkCkn_RcoDdpYuV3Fyls'
-    # tb_name = 'GRAILED'
     try:
         supabase: Client = create_client(url, key)
         supabase.table(tb_name).insert(data).execute()
@@ -91,9 +61,7 @@ def push_to_supadase(data: dict, _url: str) -> bool:
         return False
 
 
-@request(
-    # cache=True,
-)
+@request()
 def grailed_parser(request: Request, data):
     try:
         responce = request.get(data)
