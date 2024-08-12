@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import requests
 from botasaurus.browser import browser, Driver
 
 from .helpers import grailed_parser, authorization_to_grailed
@@ -12,18 +13,21 @@ from loguru import logger
 
 def pars_page_links(driver: Driver):
     soup = BeautifulSoup(driver.page_html, 'lxml')
+    data = []
     for item in soup.select('div.feed-item'):
         try:
             _url = f"https://www.grailed.com{item.select_one('a.listing-item-link').get('href')}"
 
             # <-- Pars Card -->
-
-            if grailed_parser(_url) is None:
+            fl, dct = grailed_parser(_url)[0], grailed_parser(_url)[1]
+            if fl is None:
                 break
             logger.info(f'UNIQUE LINK):  {_url}')
+            data.append(dct)
             # <-- /Pars Card -->
         except:
             ...
+    return data
 
 
 @browser(
@@ -42,8 +46,11 @@ def pars_manager(driver: Driver, data: str):
     driver.save_screenshot(f'AFTER_authorisation_{datetime.now().strftime("%Y_%m_%d__%H_%M_%S")}.png')
 
     # <-- Pars All Page Links -->
-    pars_page_links(driver)
+    result = pars_page_links(driver)
     # <-- /Pars All Page Links -->
+
+    url = "http://159.223.33.34:8000/accept_data"
+    requests.post(url, data=str(result))
 
     return
 

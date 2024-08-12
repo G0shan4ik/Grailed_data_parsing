@@ -135,7 +135,7 @@ def grailed_parser(request: Request, data):
         return
 
     print(_dct['id'])
-    return True
+    return [True, _dct]
 
 
 def authorization_to_grailed(driver: Driver, url_: str):
