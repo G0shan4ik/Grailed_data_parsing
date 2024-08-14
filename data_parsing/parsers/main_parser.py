@@ -17,15 +17,18 @@ def pars_page_links(driver: Driver):
     for item in soup.select('div.feed-item'):
         try:
             _url = f"https://www.grailed.com{item.select_one('a.listing-item-link').get('href')}"
+            print(_url)
 
             # <-- Pars Card -->
-            fl, dct = grailed_parser(_url)[0], grailed_parser(_url)[1]
-            if fl is None:
+            dt = grailed_parser(_url)
+            if isinstance(dt, list):
+                fl, dct = grailed_parser(_url)[0], grailed_parser(_url)[1]
+            else:
                 break
             logger.info(f'UNIQUE LINK):  {_url}')
             data.append(dct)
             # <-- /Pars Card -->
-        except:
+        except Exception as e:
             ...
     return data
 
@@ -38,19 +41,30 @@ def pars_page_links(driver: Driver):
 def pars_manager(driver: Driver, data: str):
     # <-- Authorization -->
     authorization_to_grailed(driver, data)
-    logger.info(f'Success authorization {data}')
+    logger.success(f'Success authorization {data}')
     # <-- /Authorization -->
-
-    driver.sleep(1)
 
     driver.save_screenshot(f'AFTER_authorisation_{datetime.now().strftime("%Y_%m_%d__%H_%M_%S")}.png')
 
     # <-- Pars All Page Links -->
-    result = pars_page_links(driver)
+    result: list[dict] = pars_page_links(driver)
+    print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+    print(result)
+
     # <-- /Pars All Page Links -->
 
     url = "http://159.223.33.34:8000/accept_data"
-    requests.post(url, data=str(result))
+    for item in result:
+        requests.post(url, json={
+            "id": item['id'],
+            "designer": item['designer'],
+            "size": item['size'],
+            "color": item['color'],
+            "subcategory": item['subcategory'],
+            "category": item['category'],
+            "gender": item['gender'],
+            "photo_url": item['photo_url']
+        })
 
     return
 
