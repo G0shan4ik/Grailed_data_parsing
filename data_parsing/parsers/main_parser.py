@@ -17,7 +17,7 @@ def pars_page_links(driver: Driver):
     for item in soup.select('div.feed-item'):
         try:
             _url = f"https://www.grailed.com{item.select_one('a.listing-item-link').get('href')}"
-            print(_url)
+            # print(_url)
 
             # <-- Pars Card -->
             dt = grailed_parser(_url)
@@ -48,14 +48,12 @@ def pars_manager(driver: Driver, data: str):
 
     # <-- Pars All Page Links -->
     result: list[dict] = pars_page_links(driver)
-    print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
-    print(result)
 
     # <-- /Pars All Page Links -->
 
     url = "http://159.223.33.34:8000/accept_data"
     for item in result:
-        requests.post(url, json={
+        requests.post(url, params={
             "id": item['id'],
             "designer": item['designer'],
             "size": item['size'],
