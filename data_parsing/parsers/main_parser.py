@@ -53,6 +53,16 @@ def pars_manager(driver: Driver, data: str):
 
     url = "http://159.223.33.34:8000/accept_data"
     for item in result:
+        print({
+            "id": item['id'],
+            "designer": item['designer'],
+            "size": item['size'],
+            "color": item['color'],
+            "subcategory": item['subcategory'],
+            "category": item['category'],
+            "gender": item['gender'],
+            "photo_url": item['photo_url']
+        })
         requests.post(url, params={
             "id": item['id'],
             "designer": item['designer'],
@@ -63,6 +73,7 @@ def pars_manager(driver: Driver, data: str):
             "gender": item['gender'],
             "photo_url": item['photo_url']
         })
+        logger.success('Success swager')
 
     return
 
